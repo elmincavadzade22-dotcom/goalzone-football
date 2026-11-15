@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO настройки для поиска Google -->
+    <title>GoalZone — Всё о футболе: факты, Эль-Класико, Золотой мяч и викторина</title>
+    <meta name="description" content="Футбольный портал GoalZone: история великих противостояний, факты об обладателях Золотого мяча, рекорды и интерактивный футбольный квиз.">
+    <meta name="keywords" content="футбол, Эль-Класико, Золотой мяч, футбольные факты, футбольная викторина, Реал Мадрид, Барселона, Лига Чемпионов">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #090d16;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Шапка сайта */
+        header {
+            background: linear-gradient(135deg, #0f172a 0%, #064e3b 100%);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 2px solid #10b981;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #34d399;
+            text-shadow: 0 0 15px rgba(52, 211, 153, 0.5);
+        }
+
+        header p {
+            margin-top: 10px;
+            font-size: 1.1rem;
+            color: #cbd5e1;
+        }
+
+        /* Основной контейнер */
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: #34d399;
+            border-left: 4px solid #10b981;
+            padding-left: 12px;
+        }
+
+        /* Карточки с информацией */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background-color: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 14px;
+            padding: 22px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #10b981;
+        }
+
+        .card-tag {
+            display: inline-block;
+            background-color: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            color: #f8fafc;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #94a3b8;
+        }
+
+        /* Блок викторины */
+        .quiz-box {
+            background-color: #111827;
+            border: 2px solid #10b981;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.1);
+        }
+
+        .question {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 18px;
+            color: #f8fafc;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background-color: #1e293b;
+            color: #ffffff;
+            border: 1px solid #334155;
+            padding: 14px 18px;
+            border-radius: 10px;
+            text-align: left;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .option-btn:hover {
+            background-color: #334155;
+        }
+
+        .option-btn.correct {
+            background-color: #059669;
+            border-color: #34d399;
+        }
+
+        .option-btn.wrong {
+            background-color: #dc2626;
+            border-color: #f87171;
+        }
+
+        #quiz-result {
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #34d399;
+        }
+
+        #next-btn {
+            margin-top: 15px;
+            background-color: #10b981;
+            color: #090d16;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            display: none;
+        }
+
+        /* Подвал */
+        footer {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid #1f2937;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>⚽ GoalZone</h1>
+        <p>Главные факты, легенды мирового футбола и проверка твоих знаний</p>
+    </header>
+
+    <div class="container">
+        <h2>🔥 Интересное о футболе</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <span class="card-tag">Противостояние</span>
+                <h3>Эль-Класико</h3>
+                <p>Матчи между «Реал Мадридом» и «Барселоной» — главное клубное дерби планеты. За этим противостоянием в прямом эфире следят более 650 миллионов зрителей по всему миру.</p>
+            </div>
+
+            <div class="card">
+                <span class="card-tag">Награда</span>
+                <h3>Золотой мяч</h3>
+                <p>Самая престижная индивидуальная награда в футболе, вручаемая с 1956 года. Абсолютным рекордсменом является Лионель Месси, завоевавший этот трофей 8 раз.</p>
+            </div>
+
+            <div class="card">
+                <span class="card-tag">Рекорды</span>
+                <h3>Короли Лиги Чемпионов</h3>
+                <p>Мадридский «Реал» является самым титулованным клубом в истории главного еврокубка, а Криштиану Роналду удерживает статус лучшего бомбардира в истории турнира (140 голов).</p>
+            </div>
+        </div>
+
+        <h2>🎯 Футбольный Квиз</h2>
+        <div class="quiz-box">
+            <div id="question-text" class="question">Загрузка вопроса...</div>
+            <div id="options-container" class="options"></div>
+            <div id="quiz-result"></div>
+            <button id="next-btn" onclick="nextQuestion()">Следующий вопрос ➔</button>
+        </div>
+    </div>
+
+    <footer>
+        © 2026 GoalZone — Футбольный информационный портал
+    </footer>
+
+    <script>
+        const quizData = [
+            {
+                question: "1. Кто является рекордсменом по количеству выигранных «Золотых мячей»?",
+                options: ["Криштиану Роналду", "Лионель Месси", "Зинедин Зидан", "Йохан Кройф"],
+                correct: 1
+            },
+            {
+                question: "2. Как называется легендарное противостояние «Реал Мадрида» и «Барселоны»?",
+                options: ["Дерби делла Мадоннина", "Суперкласико", "Эль-Класико", "Северо-западное дерби"],
+                correct: 2
+            },
+            {
+                question: "3. Какая сборная чаще всех выигрывала Чемпионат мира по футболу (5 раз)?",
+                options: ["Германия", "Аргентина", "Франция", "Бразилия"],
+                correct: 3
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+
+        function loadQuestion() {
+            answered = false;
+            document.getElementById("quiz-result").textContent = "";
+            document.getElementById("next-btn").style.display = "none";
+            
+            const q = quizData[currentQuestion];
+            document.getElementById("question-text").textContent = q.question;
+            
+            const optionsContainer = document.getElementById("options-container");
+            optionsContainer.innerHTML = "";
+
+            q.options.forEach((option, index) => {
+                const btn = document.createElement("button");
+                btn.className = "option-btn";
+                btn.textContent = option;
+                btn.onclick = () => checkAnswer(index, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selectedIndex, selectedBtn) {
+            if (answered) return;
+            answered = true;
+
+            const correctIndex = quizData[currentQuestion].correct;
+            const buttons = document.querySelectorAll(".option-btn");
+
+            if (selectedIndex === correctIndex) {
+                selectedBtn.classList.add("correct");
+                score++;
+                document.getElementById("quiz-result").textContent = "Верно! Отличный удар в девятку ⚽";
+            } else {
+                selectedBtn.classList.add("wrong");
+                buttons[correctIndex].classList.add("correct");
+                document.getElementById("quiz-result").textContent = "Мимо! Правильный ответ подсвечен зелёным.";
+            }
+
+            document.getElementById("next-btn").style.display = "inline-block";
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < quizData.length) {
+                loadQuestion();
+            } else {
+                document.getElementById("question-text").textContent = `Квиз завершён! Твой счёт: ${score} из ${quizData.length}`;
+                document.getElementById("options-container").innerHTML = "";
+                document.getElementById("quiz-result").textContent = score === quizData.length ? "Ты настоящий эксперт футбола! 🏆" : "Хороший результат! Попробуй ещё раз.";
+                const nextBtn = document.getElementById("next-btn");
+                nextBtn.textContent = "Пройти заново ↻";
+                nextBtn.onclick = () => {
+                    currentQuestion = 0;
+                    score = 0;
+                    nextBtn.textContent = "Следующий вопрос ➔";
+                    nextBtn.onclick = nextQuestion;
+                    loadQuestion();
+                };
+            }
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
