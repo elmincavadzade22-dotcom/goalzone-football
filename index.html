@@ -3,33 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GoalZone</title>
+    <title>GoalZone Elite — Элитная футбольная энциклопедия</title>
     <style>
-        body { background: #0b0c10; color: #fff; font-family: sans-serif; padding: 15px; }
-        .tabs { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; }
-        .tabs button { background: #1f2833; color: #66fcf1; border: 1px solid #45a29e; padding: 10px 15px; border-radius: 8px; cursor: pointer; }
-        .content { display: none; }
-        .content.active { display: block; }
-        .card { background: #1f2833; padding: 15px; border-radius: 8px; margin-bottom: 10px; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        body {
+            background-color: #0b0c10;
+            color: #c5c6c7;
+            padding: 12px;
+            line-height: 1.6;
+        }
+        header {
+            text-align: center;
+            padding: 25px 15px;
+            background: linear-gradient(135deg, #1f2833, #0b0c10);
+            border-bottom: 3px solid #66fcf1;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+        }
+        header h1 {
+            color: #66fcf1;
+            font-size: 26px;
+            text-shadow: 0 0 15px rgba(102,252,241,0.4);
+            margin-bottom: 6px;
+        }
+        header p {
+            color: #8892b0;
+            font-size: 13px;
+        }
+        /* Меню вкладок */
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            scrollbar-width: thin;
+            scrollbar-color: #45a29e #1f2833;
+        }
+        .nav-tabs::-webkit-scrollbar {
+            height: 6px;
+        }
+        .nav-tabs::-webkit-scrollbar-thumb {
+            background: #45a29e;
+            border-radius: 3px;
+        }
+        .nav-tabs button {
+            background: #1f2833;
+            border: 1px solid #45a29e;
+            color: #c5c6c7;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+        .nav-tabs button.active, .nav-tabs button:hover {
+            background: #66fcf1;
+            color: #0b0c10;
+            font-weight: bold;
+            box-shadow: 0 0 12px rgba(102,252,241,0.5);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .card {
+            background: #1f2833;
+            border: 1px solid #28313d;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+        .card h3 {
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .card span {
+            color: #66fcf1;
+            font-size: 12px;
+            background: rgba(102,252,241,0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .card p {
+            color: #a8b2d1;
+            font-size: 13px;
+        }
+        .section-title {
+            color: #66fcf1;
+            font-size: 17px;
+            margin: 18px 0 10px 0;
+            border-left: 4px solid #66fcf1;
+            padding-left: 8px;
+            font-weight: 600;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #4a5568;
+            font-size: 12px;
+            margin-top: 25px;
+            border-top: 1px solid #1f2833;
+        }
     </style>
 </head>
 <body>
-    <h2>⚽ GoalZone</h2>
-    <div class="tabs">
-        <button onclick="showTab('t1')">Главная</button>
-        <button onclick="showTab('t2')">Золотой мяч</button>
+
+    <header>
+        <h1>⚽ GoalZone Elite</h1>
+        <p>Энциклопедия рекордов, скандалов, великих матчей и статистики</p>
+    </header>
+
+    <!-- Навигация по вкладкам -->
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'main')">🏠 Главная</button>
+        <button class="tab-btn" onclick="openTab(event, 'ballondor')">🏆 Золотой мяч</button>
+        <button class="tab-btn" onclick="openTab(event, 'blowouts')">💥 Разгромы</button>
+        <button class="tab-btn" onclick="openTab(event, 'scandals')">⚖️ Судьи</button>
+        <button class="tab-btn" onclick="openTab(event, 'clubs')">⭐ Клубы 2026</button>
+        <button class="tab-btn" onclick="openTab(event, 'goals')">🎯 Бомбардиры</button>
+        <button class="tab-btn" onclick="openTab(event, 'facts')">⚡ Факты</button>
     </div>
-    <div id="t1" class="content active">
-        <div class="card"><h3>Главная</h3><p>Всё работает!</p></div>
+
+    <!-- 1. Главная -->
+    <div id="main" class="tab-content active">
+        <div class="card">
+            <h3>🏟️ Добро пожаловать в архив GoalZone! <span>База знаний</span></h3>
+            <p>Выбери интересующий раздел вверху, чтобы погрузиться в мир грандиозных футбольных историй, рекордов и статистики.</p>
+        </div>
     </div>
-    <div id="t2" class="content">
-        <div class="card"><h3>Золотой мяч</h3><p>Страница открылась!</p></div>
+
+    <!-- 2. Золотой мяч -->
+    <div id="ballondor" class="tab-content">
+        <div class="section-title">🏆 Все обладатели «Золотого мяча»</div>
+        <div class="card"><h3>2026: Гарри Кейн <span>🏴󠁧󠁢󠁥󠁮󠁧󠁿 Бавария</span></h3><p>Рекордные 73 гола за сезон и триумф в Лондоне.</p></div>
+        <div class="card"><h3>2025: Усман Дембеле <span>🇫🇷 ПСЖ</span></h3><p>Лидер парижан на пути к еврокубкам.</p></div>
+        <div class="card"><h3>2024: Родри <span>🇪🇸 Манчестер Сити</span></h3><p>Победитель Евро-2024 и АПЛ.</p></div>
+        <div class="card"><h3>2023: Лионель Месси <span>🇦🇷 Интер Майами</span></h3><p>Восьмой мяч после победы на ЧМ-2022.</p></div>
+        <div class="card"><h3>2022: Карим Бензема <span>🇫🇷 Реал Мадрид</span></h3><p>Триумф в Лиге Чемпионов.</p></div>
+        <div class="card"><h3>2021: Лионель Месси <span>🇦🇷 ПСЖ</span></h3><p>Успех с Барсой и Кубок Америки.</p></div>
+        <div class="card"><h3>2019: Лионель Месси <span>🇦🇷 Барселона</span></h3><p>Шестой трофей аргентинца.</p></div>
+        <div class="card"><h3>2018: Лука Модрич <span>🇭🇷 Реал Мадрид</span></h3><p>Прервал эру Месси-Роналду, финал ЧМ.</p></div>
+        <div class="card"><h3>2017: Криштиану Роналду <span>🇵🇹 Реал Мадрид</span></h3><p>Защита титула ЛЧ.</p></div>
+        <div class="card"><h3>2016: Криштиану Роналду <span>🇵🇹 Реал Мадрид</span></h3><p>Евро-2016 и Лига Чемпионов.</p></div>
+        <div class="card"><h3>2015: Лионель Месси <span>🇦🇷 Барселона</span></h3><p>Великий требл каталонцев.</p></div>
+        <div class="card"><h3>2014: Криштиану Роналду <span>🇵🇹 Реал Мадрид</span></h3><p>Рекорд голов в ЛЧ.</p></div>
+        <div class="card"><h3>2012: Лионель Месси <span>🇦🇷 Барселона</span></h3><p>91 гол за календарный год.</p></div>
+        <div class="card"><h3>2008: Криштиану Роналду <span>🇵🇹 Манчестер Юнайтед</span></h3><p>Первый триумф португальца.</p></div>
+        <div class="card"><h3>2007: Кака <span>🇧🇷 Милан</span></h3><p>Магия бразильского полузащитника.</p></div>
+        <div class="card"><h3>2002: Роналдо <span>🇧🇷 Реал Мадрид</span></h3><p>Чемпион мира и лучший бомбардир.</p></div>
+        <div class="card"><h3>1998: Зинедин Зидан <span>🇫🇷 Ювентус</span></h3><p>Триумф на домашнем Мундиале.</p></div>
+        <div class="card"><h3>1997: Роналдо <span>🇧🇷 Интер</span></h3><p>Феномен мирового футбола.</p></div>
+        <div class="card"><h3>1995: Джордж Веа <span>🇱🇷 Милан</span></h3><p>Первый неевропеец с наградой.</p></div>
+        <div class="card"><h3>1986: Игорь Беланов <span>🇺🇸 СССР (Динамо Киев)</span></h3><p>Блестящий год для советского футбола.</p></div>
+        <div class="card"><h3>1975: Олег Блохин <span>🇺🇸 СССР (Динамо Киев)</span></h3><p>Космическая скорость и голы в Европе.</p></div>
+        <div class="card"><h3>1963: Лев Яшин <span>🇺🇸 СССР (Динамо Москва)</span></h3><p>Единственный вратарь в истории с Золотым мячом!</p></div>
+        <div class="card"><h3>1956: Стэнли Мэтьюз <span>🏴󠁧󠁢󠁥󠁮󠁧󠁿 Блэкпул</span></h3><p>Исторический первый обладатель награды.</p></div>
     </div>
+
+    <!-- 3. Разгромы -->
+    <div id="blowouts" class="tab-content">
+        <div class="section-title">💥 Топ-10 крупнейших разгромов в истории</div>
+        <div class="card"><h3>1. АС Адема — СО Л'Эмир <span>149:0 (2002 год)</span></h3><p>Абсолютный мировой рекорд Гиннесса. Гости забивали в свои ворота в знак протеста.</p></div>
+        <div class="card"><h3>2. Оушен Бойз — Норд Даймонд <span>67:0</span></h3><p>Фантастический матч в низших лигах с рекордным числом голов.</p></div>
+        <div class="card"><h3>3. Австралия — Американское Самоа <span>31:0 (2001 год)</span></h3><p>Отбор на ЧМ, где Арчи Томпсон забил 13 мячей в одной игре.</p></div>
+        <div class="card"><h3>4. Вильярреал — Навалкарнеро <span>Разгромы в кубках</span></h3><p>Историческое превосходство профессионалов над любителями.</p></div>
+        <div class="card"><h3>5. Бавария — Ганза <span>11:0</span></h3><p>Один из самых крупных счетов в истории Бундеслиги.</p></div>
+        <div class="card"><h3>6. Боруссия Дортмунд — Легия <span>8:4 (2016 год)</span></h3><p>Самый результативный матч в истории группового этапа Лиги Чемпионов.</p></div>
+        <div class="card"><h3>7. Барселона — Бавария <span>2:8 (2020 год)</span></h3><p>Шокирующий разгром каталонцев в Лиге Чемпионов.</p></div>
+        <div class="card"><h3>8. Бразилия — Германия <span>1:7 (ЧМ-2014)</span></h3><p>Величайший национальный позор сборной Бразилии на домашнем мундиале.</p></div>
+        <div class="card"><h3>9. МЮ — Ипсвич Таун <span>9:0</span></h3><p>Повторение рекорда самой крупной победы в истории АПЛ.</p></div>
+        <div class="card"><h3>10. Реал Мадрид — Барселона <span>11:1 (1943 год)</span></h3><p>Самое легендарное и скандальное Класико в кубке.</p></div>
+    </div>
+
+    <!-- 4. Судейские скандалы -->
+    <div id="scandals" class="tab-content">
+        <div class="section-title">⚖️ Топ-10 матчей с вопиющим судейством</div>
+        <div class="card"><h3>1. Южная Корея — Италия <span>ЧМ-2002</span></h3><p>Скандальное удаление Тотти, отмененный чистый гол и жесткая игра хозяев без удалений.</p></div>
+        <div class="card"><h3>2. Южная Корея — Испания <span>ЧМ-2002</span></h3><p>Испании несправедливо отменили два гола в ворота хозяев поля.</p></div>
+        <div class="card"><h3>3. Аргентина — Англия <span>ЧМ-1986</span></h3><p>Легендарная «Рука Бога» Диего Марадоны, засчитанная арбитром.</p></div>
+        <div class="card"><h3>4. Франция — Ирландия <span>Стыки ЧМ-2010</span></h3><p>Тьерри Анри откровенно подыграл себе рукой перед результативным пасом.</p></div>
+        <div class="card"><h3>5. Челси — Барселона <span>ЛЧ 2009</span></h3><p>Судья Эвребе не назначил несколько очевидных пенальти в ворота каталонцев.</p></div>
+        <div class="card"><h3>6. Реал Мадрид — Бавария <span>ЛЧ 2017</span></h3><p>Голы из метровых офсайдов и спорное удаление Видаля.</p></div>
+        <div class="card"><h3>7. Германия — Англия <span>ЧМ-2010</span></h3><p>Удар Лэмпарда пересек линию ворот на метр, но судья не засчитал гол.</p></div>
+        <div class="card"><h3>8. Барселона — ПСЖ <span>ЛЧ 2017</span></h3><p>Легендарный камбэк 6:1 с очень спорными пенальти в ворота парижан.</p></div>
+        <div class="card"><h3>9. Бельгия — СССР <span>ЧМ-1986</span></h3><p>Решающий гол бельгийцев забит из очевидного метрового офсайда.</p></div>
+        <div class="card"><h3>10. Аргентина — Англия <span>ЧМ-1966</span></h3><p>Удаление капитана аргентинцев за то, что «не понравился взгляд судьи».</p></div>
+    </div>
+
+    <!-- 5. Клубы 2026 -->
+    <div id="clubs" class="tab-content">
+        <div class="section-title">⭐ Топ-10 сильнейших клубов мира (2026 год)</div>
+        <div class="card"><h3>1. Реал Мадрид <span>🇪🇸 Испания</span></h3><p>Действующий флагман Европы с галактикос нового поколения.</p></div>
+        <div class="card"><h3>2. Манчестер Сити <span>🏴󠁧󠁢󠁥󠁮󠁧󠁿 Англия</span></h3><p>Тактическая машина Пепа Гвардиолы.</p></div>
+        <div class="card"><h3>3. Бавария <span>🇩🇪 Германия</span></h3><p>Немецкий гранд с мощнейшей атакой.</p></div>
+        <div class="card"><h3>4. ПСЖ <span>🇫🇷 Франция</span></h3><p>Парижский суперклуб со звездным составом.</p></div>
+        <div class="card"><h3>5. Арсенал <span>🏴󠁧󠁢󠁥󠁮󠁧󠁿 Англия</span></h3><p>Молодая и энергичная банда Микеля Артеты.</p></div>
+        <div class="card"><h3>6. Ливерпуль <span>🏴󠁧󠁢󠁥󠁮󠁧󠁿 Англия</span></h3><p>Команда с реактивными флангами и ментальностью победителей.</p></div>
+        <div class="card"><h3>7. Интер <span>🇮🇹 Италия</span></h3><p>Итальянский прагматизм и смертоносные контратаки.</p></div>
+        <div class="card"><h3>8. Барселона <span>🇪🇸 Испания</span></h3><p>Возрождение молодежи Ла Масии и атакующего стиля.</p></div>
+        <div class="card"><h3>9. Байер Леверкузен <span>🇩🇪 Германия</span></h3><p>Удивительная гибкость и невероятная воля к победе.</p></div>
+        <div class="card"><h3>10. Атлетико Мадрид <span>🇪🇸 Испания</span></h3><p>Неуступчивый и жесткий коллектив Диего Симеоне.</p></div>
+    </div>
+
+    <!-- 6. Бомбардиры -->
+    <div id="goals" class="tab-content">
+        <div class="section-title">🎯 Топ-10 лучших бомбардиров в истории</div>
+        <div class="card"><h3>1. Криштиану Роналду <span>🇵🇹 Португалия (~900+ голов)</span></h3><p>Величайший бомбардир в истории официального футбола.</p></div>
+        <div class="card"><h3>2. Лионель Месси <span>🇦🇷 Аргентина (~850+ голов)</span></h3><p>Гениальный маэстро, идущий следом с феноменальной статистикой.</p></div>
+        <div class="card"><h3>3. Йозеф Бицан <span>🇦🇹 Чехословакия (805+ голов)</span></h3><p>Легендарный бомбардир середины XX века.</p></div>
+        <div class="card"><h3>4. Пеле <span>🇧🇷 Бразилия (762+ официальных)</span></h3><p>Король футбола и трехкратный чемпион мира.</p></div>
+        <div class="card"><h3>5. Ромарио <span>🇧🇷 Бразилия (755+ голов)</span></h3><p>Мастер штрафной площадки и голевого чутья.</p></div>
+        <div class="card"><h3>6. Ференц Пушкаш <span>🇭🇺 Венгрия (724+ голов)</span></h3><p>Звезда венгерской «Золотой команды» и Реала.</p></div>
+        <div class="card"><h3>7. Герд Мюллер <span>🇩🇪 Германия (735+ голов)</span></h3><p>Немецкий «бомбардир нации».</p></div>
+        <div class="card"><h3>8. Роберт Левандовский <span>🇵🇱 Польша (650+ голов)</span></h3><p>Современный польский голеадор.</p></div>
+        <div class="card"><h3>9. Златан Ибрагимович <span>🇸🇪 Швеция (573+ голов)</span></h3><p>Автор самых зрелищных акробатических голов.</p></div>
+        <div class="card"><h3>10. Эйсебио <span>🇵🇹 Португалия (552+ голов)</span></h3><p>«Черная пантера», легенда Бенфики.</p></div>
+    </div>
+
+    <!-- 7. Факты -->
+    <div id="facts" class="tab-content">
+        <div class="section-title">⚡ Топ-5 самых быстрых голов</div>
+        <div class="card"><h3>1. Никлас Бендтнер <span>1.8 секунды (2007 год)</span></h3><p>Гол сразу после розыгрыша мяча с центра поля.</p></div>
+        <div class="card"><h3>2. Рикардо Оливейра <span>2.8 секунды (1998 год)</span></h3><p>Мгновенный удар в чемпионате Рио-де-Жанейро.</p></div>
+        <div class="card"><h3>3. Колин Коулвэй <span>3.1 секунды (2004 год)</span></h3><p>Прямой удар с центра поля в британских лигах.</p></div>
+        <div class="card"><h3>4. Марк Буркус <span>3.9 секунды (2009 год)</span></h3><p>Молниеносный гол в чемпионате Венгрии.</p></div>
+        <div class="card"><h3>5. Хакан Шукюр <span>10.8 секунд (ЧМ-2002)</span></h3><p>Рекорд финальных стадий Чемпионатов мира.</p></div>
+
+        <div class="section-title">🔥 Топ-5 сумасшедших камбэков в ЛЧ</div>
+        <div class="card"><h3>1. Барселона — ПСЖ <span>6:1 (2017 год)</span></h3><p>Отыграться после 0:4 в первом матче не удавалось никому.</p></div>
+        <div class="card"><h3>2. Ливерпуль — Милан <span>3:3 (2005 год)</span></h3><p>«Чудо в Стамбуле»: отыгрыш 0:3 за один тайм в финале.</p></div>
+        <div class="card"><h3>3. Тоттенхэм — Аякс <span>3:2 (2019 год)</span></h3><p>Хет-трик Лукаса Моуры во втором тайме полуфинала.</p></div>
+        <div class="card"><h3>4. Рома — Барселона <span>3:0 (2018 год)</span></h3><p>Римляне отыгрывают разгром 1:4 на домашнем поле.</p></div>
+        <div class="card"><h3>5. Манчестер Юнайтед — Бавария <span>2:1 (1999 год)</span></h3><p>Два гола в добавленное время прямо в финале Лиги Чемпионов.</p></div>
+    </div>
+
+    <footer>
+        &copy; 2026 GoalZone Elite. Все права защищены.
+    </footer>
+
     <script>
-        function showTab(id) {
-            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+        function openTab(evt, tabName) {
+            let contents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < contents.length; i++) {
+                contents[i].classList.remove("active");
+            }
+            let buttons = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
         }
     </script>
+
 </body>
 </html>
